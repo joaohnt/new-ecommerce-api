@@ -1,6 +1,9 @@
 ﻿namespace Ecommerce.Domain.Enums;
 
-public class Status
+public enum Status
 {
-    
+    Created,
+    Received,
+    Processed,
+    Canceled,
 }

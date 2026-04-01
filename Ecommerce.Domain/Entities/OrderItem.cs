@@ -18,4 +18,11 @@ public class OrderItem : Entity
         Price = price;
         Quantity = quantity;
     }
+    
+    internal void Update(string name, decimal price, int quantity)
+    {
+        Name = name;
+        Price = price;
+        Quantity = quantity;
+    }
 }

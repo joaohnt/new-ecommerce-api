@@ -14,8 +14,5 @@ public class EcommerceDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EcommerceDbContext).Assembly);
-        modelBuilder.Entity<OrderItem>();
-        modelBuilder.Entity<Order>();
-        modelBuilder.Entity<Customer>();
     }
 }

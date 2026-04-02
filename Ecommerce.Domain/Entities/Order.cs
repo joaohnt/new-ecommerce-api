@@ -8,34 +8,43 @@ public class Order : Entity
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public int CustomerId { get; private set; }
-    public Customer Customer { get; private set; } = null!;
-    
     private readonly List<OrderItem> _orderItems = new(); 
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
-    public Order()
+    public Order(int customerId, IEnumerable<OrderItem> items)
     {
+        if (customerId <= 0)
+            throw new ArgumentOutOfRangeException(nameof(customerId));
+
+        if (items is null)
+            throw new ArgumentNullException(nameof(items));
+
+        var itemList = items.ToList();
+
+        if (itemList.Count == 0)
+            throw new ArgumentException("O pedido deve ter pelo menos um item.", nameof(items));
+
         OrderStatus = OrderStatus.Created;
         CreatedAt = DateTime.UtcNow;
-    }
-    public void EnsureHasItems()
-    {
-        if (_orderItems.Count == 0)
-            throw new ArgumentException("A lista de itens não pode ser vazia");
+        CustomerId = customerId;
+
+        foreach (var item in itemList)
+        {
+            if (item is null)
+                throw new ArgumentException("O pedido não pode conter itens nulos.", nameof(items));
+
+            _orderItems.Add(item);
+        }
     }
     
-    private void CheckItem(string name, decimal price, int quantity)
+    private void EnsureOrderCanBeChanged()
     {
-        if(quantity < 1)
-            throw new ArgumentOutOfRangeException(nameof(quantity), "A quantidade não pode ser inferior a 1");
-        if(price <= 0)
-            throw new ArgumentOutOfRangeException(nameof(price), "O preço precisa ser superior a 0");
-        if(string.IsNullOrEmpty(name)) 
-            throw new ArgumentNullException(nameof(name), "O nome não pode ser vazio");
+        if (OrderStatus != OrderStatus.Created)
+            throw new InvalidOperationException("Apenas pedidos não processados podem ser alterados.");
     }
     public void AddItem(OrderItem orderItem)
     {
-        CheckItem(orderItem.Name, orderItem.Price, orderItem.Quantity);
+        EnsureOrderCanBeChanged();
         _orderItems.Add(orderItem);
     }
     
@@ -51,6 +60,9 @@ public class Order : Entity
     }
     public void UpdateOrderStatusToProcessed()
     {
+        if (OrderStatus != OrderStatus.Created)
+            throw new InvalidOperationException("Apenas pedidos criados podem ser processados.");
+        
         OrderStatus = OrderStatus.Processed;
         UpdatedAt = DateTime.UtcNow;
     }
@@ -58,22 +70,22 @@ public class Order : Entity
     public void ShipOrder()
     {
         if (OrderStatus == OrderStatus.Processed)
+        {
             OrderStatus = OrderStatus.Shipped;
+            UpdatedAt = DateTime.UtcNow;
+        }       
         else
             throw new InvalidOperationException("Apenas pedidos processados podem ser enviados.");
     }
     
     public void UpdateItem(int itemId, string name, decimal price, int quantity)
     {
-        if (OrderStatus != OrderStatus.Created)
-            throw new InvalidOperationException("Apenas pedidos não processados podem ser alterados.");
+        EnsureOrderCanBeChanged();
 
         var item = _orderItems.FirstOrDefault(x => x.Id == itemId);
 
         if (item is null)
             throw new ArgumentException("Item não encontrado.", nameof(itemId));
-
-        CheckItem(name, price, quantity);
 
         item.Update(name, price, quantity);
 

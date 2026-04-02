@@ -14,13 +14,25 @@ public class OrderItem : Entity
     
     internal OrderItem(string name, decimal price, int quantity)
     {
+        Validate(name, price, quantity);
         Name = name;
         Price = price;
         Quantity = quantity;
     }
-    
+    private static void Validate(string name, decimal price, int quantity)
+    {
+        if (quantity < 1)
+            throw new ArgumentOutOfRangeException(nameof(quantity));
+
+        if (price <= 0)
+            throw new ArgumentOutOfRangeException(nameof(price));
+
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("O nome não pode ser vazio.", nameof(name));
+    }
     internal void Update(string name, decimal price, int quantity)
     {
+        Validate(name, price, quantity);
         Name = name;
         Price = price;
         Quantity = quantity;

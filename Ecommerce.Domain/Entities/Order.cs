@@ -16,9 +16,6 @@ public class Order : Entity
         if (customerId <= 0)
             throw new ArgumentOutOfRangeException(nameof(customerId));
 
-        if (items is null)
-            throw new ArgumentNullException(nameof(items));
-
         var itemList = items.ToList();
 
         if (itemList.Count == 0)

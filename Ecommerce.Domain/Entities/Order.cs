@@ -39,11 +39,6 @@ public class Order : Entity
         if (OrderStatus != OrderStatus.Created)
             throw new InvalidOperationException("Apenas pedidos não processados podem ser alterados.");
     }
-    public void AddItem(OrderItem orderItem)
-    {
-        EnsureOrderCanBeChanged();
-        _orderItems.Add(orderItem);
-    }
     
     public void CancelOrder()
     {

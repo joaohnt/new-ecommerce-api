@@ -50,7 +50,7 @@ public class Order : Entity
         else 
             throw new InvalidOperationException("Apenas pedidos iniciados ou processados podem ser cancelados.");
     }
-    public void UpdateOrderStatusToProcessed()
+    public void Process()
     {
         if (OrderStatus != OrderStatus.Created)
             throw new InvalidOperationException("Apenas pedidos criados podem ser processados.");
@@ -59,7 +59,7 @@ public class Order : Entity
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public void ShipOrder()
+    public void Ship()
     {
         if (OrderStatus == OrderStatus.Processed)
         {

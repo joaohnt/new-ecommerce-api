@@ -16,9 +16,6 @@ public class Order : Entity
         if (customerId <= 0)
             throw new ArgumentOutOfRangeException(nameof(customerId));
 
-        if (items is null)
-            throw new ArgumentNullException(nameof(items));
-
         var itemList = items.ToList();
 
         if (itemList.Count == 0)
@@ -42,11 +39,6 @@ public class Order : Entity
         if (OrderStatus != OrderStatus.Created)
             throw new InvalidOperationException("Apenas pedidos não processados podem ser alterados.");
     }
-    public void AddItem(OrderItem orderItem)
-    {
-        EnsureOrderCanBeChanged();
-        _orderItems.Add(orderItem);
-    }
     
     public void CancelOrder()
     {
@@ -58,7 +50,7 @@ public class Order : Entity
         else 
             throw new InvalidOperationException("Apenas pedidos iniciados ou processados podem ser cancelados.");
     }
-    public void UpdateOrderStatusToProcessed()
+    public void Process()
     {
         if (OrderStatus != OrderStatus.Created)
             throw new InvalidOperationException("Apenas pedidos criados podem ser processados.");
@@ -67,7 +59,7 @@ public class Order : Entity
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public void ShipOrder()
+    public void Ship()
     {
         if (OrderStatus == OrderStatus.Processed)
         {

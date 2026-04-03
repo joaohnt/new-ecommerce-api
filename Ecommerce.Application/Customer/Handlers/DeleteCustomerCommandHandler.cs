@@ -4,10 +4,10 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Handlers;
 
-public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerCommand, bool>
+public class DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerCommand, bool>
 {
     private readonly ICustomerRepository _customerRepository;
-    public DeleteCustomerHandler(ICustomerRepository customerRepository)
+    public DeleteCustomerCommandHandler(ICustomerRepository customerRepository)
     {
         _customerRepository = customerRepository;
     }

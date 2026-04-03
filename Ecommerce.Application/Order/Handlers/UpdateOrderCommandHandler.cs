@@ -5,10 +5,10 @@ using MediatR;
 
 namespace Ecommerce.Application.Order.Handlers;
 
-public class UpdateOrderHandler : IRequestHandler<UpdateOrderCommand, OrderDto>
+public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, OrderDto>
 {
     private readonly IOrderRepository _orderRepository;
-    public UpdateOrderHandler(IOrderRepository orderRepository)
+    public UpdateOrderCommandHandler(IOrderRepository orderRepository)
     {
         _orderRepository = orderRepository;
     }

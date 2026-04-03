@@ -4,10 +4,10 @@ using MediatR;
 
 namespace Ecommerce.Application.Order.Handlers;
 
-public class CancelOrderHandler : IRequestHandler<CancelOrderCommand, bool>
+public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, bool>
 {
     private readonly IOrderRepository _orderRepository;
-    public CancelOrderHandler(IOrderRepository orderRepository)
+    public CancelOrderCommandHandler(IOrderRepository orderRepository)
     {
         _orderRepository = orderRepository;
     }

@@ -18,15 +18,9 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    [Route("")]
-    public async Task<ActionResult<PagedList<OrderDto>>> GetAllAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+    public async Task<ActionResult<PagedList<OrderDto>>> GetAllAsync([FromQuery] PageParams pageParams)
     {
-        var orders = await _mediator.Send(new GetAllOrdersQuery
-        {
-            PageNumber = pageNumber,
-            PageSize = pageSize
-        });
-
+        var orders = await _mediator.Send(new GetAllOrdersQuery(pageParams));
         return Ok(orders);
     }
 
@@ -34,12 +28,11 @@ public class OrderController : ControllerBase
     [Route("{orderId}")]
     public async Task<ActionResult<OrderDto>> GetByIdAsync(int orderId)
     {
-        var order = await _mediator.Send(new GetOrderByIdQuery { OrderId = orderId });
+        var order = await _mediator.Send(new GetOrderByIdQuery(orderId));
         return Ok(order);
     }
 
     [HttpPost]
-    [Route("")]
     public async Task<ActionResult<OrderDto>> CreateAsync([FromBody] CreateOrderCommand command)
     {
         var order = await _mediator.Send(command);

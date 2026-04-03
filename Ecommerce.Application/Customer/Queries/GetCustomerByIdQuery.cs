@@ -3,7 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Queries;
 
-public class GetCustomerByIdQuery : IRequest<CustomerDto>
-{
-    public int CustomerId { get; set; }
-}
+public record GetCustomerByIdQuery(int CustomerId) : IRequest<CustomerDto>;

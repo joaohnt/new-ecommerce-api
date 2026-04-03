@@ -2,6 +2,7 @@
 using Ecommerce.Application.Customer.DTOs;
 using Ecommerce.Application.Customer.Queries;
 using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,27 +19,21 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    [Route("")]
-    public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAllAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+    public async Task<ActionResult<PagedList<CustomerDto>>> GetAllAsync([FromQuery] PageParams pageParams)
     {
-        var customers = await _mediator.Send(new GetAllCustomersQuery()
-        {
-            PageNumber = pageNumber,
-            PageSize = pageSize
-        });       
-        return Ok(customers);
+        var result = await _mediator.Send(new GetAllCustomersQuery(pageParams));
+        return Ok(result);
     }
 
     [HttpGet]
     [Route("{customerId}")]
     public async Task<ActionResult<CustomerDto>> GetByIdAsync(int customerId)
     {
-        var customer = await _mediator.Send(new GetCustomerByIdQuery{CustomerId = customerId});
+        var customer = await _mediator.Send(new GetCustomerByIdQuery(customerId));
         return Ok(customer);
     }
 
-    [HttpPost]
-    [Route("")]
+    [HttpPost] 
     public async Task<ActionResult<CustomerDto>> CreateAsync([FromBody] CreateCustomerCommand command)
     {
         var customer = await _mediator.Send(command);

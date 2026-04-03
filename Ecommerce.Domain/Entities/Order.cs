@@ -2,11 +2,9 @@
 
 namespace Ecommerce.Domain.Entities;
 
-public class Order : Entity
+public class Order : AuditableEntity
 {
     public OrderStatus OrderStatus { get; private set; }
-    public DateTime CreatedAt { get; private set; }
-    public DateTime? UpdatedAt { get; private set; }
     public Customer Customer { get; private set; } = null!;
     public int CustomerId { get; private set; }
     private readonly List<OrderItem> _orderItems = new(); 
@@ -48,6 +46,7 @@ public class Order : Entity
         {
             OrderStatus =  OrderStatus.Canceled;
             UpdatedAt = DateTime.UtcNow;
+            DeletedAt = DateTime.UtcNow;
         }
         else 
             throw new InvalidOperationException("Apenas pedidos iniciados ou processados podem ser cancelados.");

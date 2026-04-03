@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Domain.Entities;
 
-public class OrderItem : Entity
+public class OrderItem : BaseEntity
 {
     public string Name { get; private set; }
     public decimal Price { get; private set; }

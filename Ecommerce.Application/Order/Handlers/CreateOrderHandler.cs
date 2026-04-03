@@ -24,7 +24,15 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderDto>
         {
             Id = order.Id,
             CustomerId = order.CustomerId,
-            OrderStatus = order.OrderStatus
+            OrderStatus = order.OrderStatus,
+            CreatedAt = order.CreatedAt,
+            UpdatedAt = order.UpdatedAt,
+            OrderItems = order.OrderItems.Select(item => new OrderItemDto
+            {
+                Name = item.Name,
+                Price = item.Price,
+                Quantity = item.Quantity
+            })
         };
     }
 }

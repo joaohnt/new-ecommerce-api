@@ -19,7 +19,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
 app.MapControllers();
 app.UseSwagger(options => { });
 app.UseSwaggerUI();

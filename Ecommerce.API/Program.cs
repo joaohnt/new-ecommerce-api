@@ -15,7 +15,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
-
+builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,5 +26,6 @@ app.MapControllers();
 app.UseSwagger(options => { });
 app.UseSwaggerUI();
 app.UseExceptionHandler();
+app.UseHealthChecks("/health");
 
 app.Run();

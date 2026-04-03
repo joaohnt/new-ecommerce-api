@@ -1,6 +1,6 @@
 namespace Ecommerce.Domain.Entities;
 
-public class Customer : Entity
+public class Customer : BaseEntity
 {
     public string Name { get; private set; }
     public string Email { get; private set; }

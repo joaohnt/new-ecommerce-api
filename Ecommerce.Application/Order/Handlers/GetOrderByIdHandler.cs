@@ -27,6 +27,7 @@ public class GetOrderByIdHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>
             OrderStatus = order.OrderStatus,
             CreatedAt = order.CreatedAt,
             UpdatedAt = order.UpdatedAt,
+            DeletedAt = order.DeletedAt,
             OrderItems = order.OrderItems.Select(item => new OrderItemDto
             {
                 Name = item.Name,

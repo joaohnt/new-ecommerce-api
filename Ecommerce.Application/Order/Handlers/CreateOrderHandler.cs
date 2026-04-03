@@ -26,7 +26,6 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderDto>
             CustomerId = order.CustomerId,
             OrderStatus = order.OrderStatus,
             CreatedAt = order.CreatedAt,
-            UpdatedAt = order.UpdatedAt,
             OrderItems = order.OrderItems.Select(item => new OrderItemDto
             {
                 Name = item.Name,

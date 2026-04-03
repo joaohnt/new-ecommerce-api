@@ -16,7 +16,7 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
     public async Task<CustomerDto> Handle(CreateCustomerCommand command, CancellationToken cancellationToken)
     {
         var customer = new Domain.Entities.Customer(command.Name,command.Email);
-        await _customerRepository.AddAsync(customer);
+        await _customerRepository.AddAsync(customer, cancellationToken);
         return new CustomerDto
         {
             Id = customer.Id,

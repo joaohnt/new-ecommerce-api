@@ -15,12 +15,12 @@ public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Ord
     
     public async Task<OrderDto> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(request.OrderId);
+        var order = await _orderRepository.GetByIdAsync(request.OrderId, cancellationToken);
         if (order == null)
             throw new ArgumentException($"O pedido {request.OrderId} não existe.");
         order.UpdateItem(request.ItemId, request.Name, request.Price, request.Quantity);
         
-        await _orderRepository.SaveChangesAsync();
+        await _orderRepository.SaveChangesAsync(cancellationToken);
 
         return new OrderDto
         {

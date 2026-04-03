@@ -13,7 +13,7 @@ public class DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerComman
     
     public async Task<bool> Handle(DeleteCustomerCommand command, CancellationToken cancellationToken)
     {
-        await _customerRepository.DeleteAsync(command.CustomerId);
+        await _customerRepository.DeleteAsync(command.CustomerId, cancellationToken);
         return true;
     }
 }

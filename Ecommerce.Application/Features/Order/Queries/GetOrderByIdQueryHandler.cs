@@ -14,7 +14,7 @@ public class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery, Order
     
     public async Task<OrderDto> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(request.OrderId);
+        var order = await _orderRepository.GetByIdAsync(request.OrderId, cancellationToken);
         
         if(order == null)
             throw new ArgumentException($"O pedido {request.OrderId} não existe");

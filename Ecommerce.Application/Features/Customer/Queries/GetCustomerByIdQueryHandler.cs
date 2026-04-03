@@ -13,7 +13,7 @@ public class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery,
     }
     public async Task<CustomerDto> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
     {
-        var customer = await _customerRepository.GetByIdAsync(request.CustomerId);
+        var customer = await _customerRepository.GetByIdAsync(request.CustomerId, cancellationToken);
         
         if(customer == null)
             throw new ArgumentException($"O cliente {request.CustomerId} não existe");

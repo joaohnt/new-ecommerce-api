@@ -15,13 +15,13 @@ public class OrderRepository : IOrderRepository
         _context = context;
     }
 
-    public async Task AddAsync(Order order)
+    public async Task AddAsync(Order order, CancellationToken cancellationToken = default)
     {
-        await _context.Orders.AddAsync(order);
-        await _context.SaveChangesAsync();
+        await _context.Orders.AddAsync(order, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<PagedList<Order>> GetAllAsync(int pageNumber, int pageSize)
+    public async Task<PagedList<Order>> GetAllAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
     {
         var query = _context.Orders
             .AsNoTracking()
@@ -29,23 +29,23 @@ public class OrderRepository : IOrderRepository
             .OrderBy(o => o.Id)
             .Include(o => o.OrderItems);
 
-        return await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
+        return await PaginationHelper.CreateAsync(query, pageNumber, pageSize, cancellationToken);
     }
 
-    public async Task<Order?> GetByIdAsync(int orderId)
+    public async Task<Order?> GetByIdAsync(int orderId, CancellationToken cancellationToken = default)
     {
         return await _context.Orders
             .Include(o => o.OrderItems)
-            .FirstOrDefaultAsync(o => o.Id == orderId);
+            .FirstOrDefaultAsync(o => o.Id == orderId, cancellationToken);
     }
     
-    public async Task<Order?> GetByIdForCancelAsync(int orderId)
+    public async Task<Order?> GetByIdForCancelAsync(int orderId, CancellationToken cancellationToken = default)
     {
-        return await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+        return await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId, cancellationToken);
     }
 
-    public async Task SaveChangesAsync()
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

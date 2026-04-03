@@ -18,7 +18,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
     {
         var items = request.OrderItems.Select(i => new OrderItem(i.Name, i.Price, i.Quantity)).ToList();
         var order = new Domain.Entities.Order(request.CustomerId, items);
-        await _orderRepository.AddAsync(order);
+        await _orderRepository.AddAsync(order, cancellationToken);
 
         return new OrderDto()
         {

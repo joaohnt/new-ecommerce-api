@@ -1,7 +1,8 @@
-﻿using Ecommerce.Application.Customer.Commands;
-using Ecommerce.Application.Customer.DTOs;
-using Ecommerce.Application.Customer.Queries;
-using Ecommerce.Domain.Entities;
+﻿using Ecommerce.Application.Features.Customer.Commands;
+using Ecommerce.Application.Features.Customer.DTOs;
+using Ecommerce.Application.Features.Customer.Queries;
+using Ecommerce.Application.Features.Customer.Commands.CreateCustomer;
+using Ecommerce.Application.Features.Customer.Commands.DeleteCustomer;
 using Ecommerce.Domain.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<EcommerceDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(Ecommerce.Application.Order.Commands.CreateOrderCommand).Assembly));
+    cfg.RegisterServicesFromAssembly(typeof(Ecommerce.Application.Features.Order.Commands.CreateOrder.CreateOrderCommand).Assembly));
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();

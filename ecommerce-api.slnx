@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="compose.yaml" />
+    <File Path="Dockerfile" />
   </Folder>
   <Project Path="Ecommerce.API/Ecommerce.API.csproj" />
   <Project Path="Ecommerce.Application/Ecommerce.Application.csproj" />

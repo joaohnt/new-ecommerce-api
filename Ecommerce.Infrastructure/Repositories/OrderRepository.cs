@@ -25,6 +25,7 @@ public class OrderRepository : IOrderRepository
     {
         var query = _context.Orders
             .AsNoTracking()
+            .Where(o => o.DeletedAt == null)
             .OrderBy(o => o.Id)
             .Include(o => o.OrderItems);
 

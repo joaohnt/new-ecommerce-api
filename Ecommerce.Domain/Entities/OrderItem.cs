@@ -11,8 +11,8 @@ public class OrderItem : Entity
     public int OrderId { get; private set; }
     [JsonIgnore]
     public Order Order { get; private set; } = null!;
-    
-    internal OrderItem(string name, decimal price, int quantity)
+
+    public OrderItem(string name, decimal price, int quantity)
     {
         Validate(name, price, quantity);
         Name = name;

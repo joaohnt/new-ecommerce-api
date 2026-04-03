@@ -5,11 +5,11 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Handlers;
 
-public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, CustomerDto>
+public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CustomerDto>
 {
     private readonly ICustomerRepository _customerRepository;
 
-    public CreateCustomerHandler(ICustomerRepository customerRepository)
+    public CreateCustomerCommandHandler(ICustomerRepository customerRepository)
     {
         _customerRepository = customerRepository;
     }

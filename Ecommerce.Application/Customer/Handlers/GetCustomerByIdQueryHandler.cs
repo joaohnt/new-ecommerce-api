@@ -5,10 +5,10 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Handlers;
 
-public class GetCustomerByIdHandler : IRequestHandler<GetCustomerByIdQuery, CustomerDto>
+public class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery, CustomerDto>
 {
     private readonly ICustomerRepository _customerRepository;
-    public GetCustomerByIdHandler(ICustomerRepository customerRepository)
+    public GetCustomerByIdQueryHandler(ICustomerRepository customerRepository)
     {
         _customerRepository = customerRepository;
     }
@@ -23,7 +23,8 @@ public class GetCustomerByIdHandler : IRequestHandler<GetCustomerByIdQuery, Cust
         {
             Id = customer.Id,
             Name = customer.Name,
-            Email = customer.Email
+            Email = customer.Email,
+            CreatedAt = customer.CreatedAt,
         };
     }
 }

@@ -5,11 +5,11 @@ using MediatR;
 
 namespace Ecommerce.Application.Order.Handlers;
 
-public class ProcessOrderHandler : IRequestHandler<ProcessOrderCommand, bool>
+public class ProcessOrderCommandHandler : IRequestHandler<ProcessOrderCommand, bool>
 {
     private readonly IOrderRepository _orderRepository;
 
-    public ProcessOrderHandler(IOrderRepository orderRepository)
+    public ProcessOrderCommandHandler(IOrderRepository orderRepository)
     {
         _orderRepository = orderRepository;
     }

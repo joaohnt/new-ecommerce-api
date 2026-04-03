@@ -5,11 +5,11 @@ using MediatR;
 
 namespace Ecommerce.Application.Order.Handlers;
 
-public class ShipOrderHandler : IRequestHandler<ShipOrderCommand, bool>
+public class ShipOrderCommandHandler : IRequestHandler<ShipOrderCommand, bool>
 {
     private readonly IOrderRepository _orderRepository;
 
-    public ShipOrderHandler(IOrderRepository orderRepository)
+    public ShipOrderCommandHandler(IOrderRepository orderRepository)
     {
         _orderRepository = orderRepository;
     }

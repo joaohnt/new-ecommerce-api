@@ -6,17 +6,17 @@ using MediatR;
 
 namespace Ecommerce.Application.Order.Handlers;
 
-public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersQuery, PagedList<OrderDto>>
+public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, PagedList<OrderDto>>
 {
     private readonly IOrderRepository _orderRepository;
-    public GetAllOrdersHandler(IOrderRepository orderRepository)
+    public GetAllOrdersQueryHandler(IOrderRepository orderRepository)
     {
         _orderRepository = orderRepository;
     }
     
     public async Task<PagedList<OrderDto>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
     {
-        var orders = await _orderRepository.GetAllAsync(request.PageNumber, request.PageSize);
+        var orders = await _orderRepository.GetAllAsync(request.PageParams.PageNumber, request.PageParams.PageSize);
 
         var orderDtos = orders.Select(order => new OrderDto
         {

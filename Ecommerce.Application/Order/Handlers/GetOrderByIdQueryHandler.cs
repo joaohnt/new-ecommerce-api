@@ -1,31 +1,33 @@
-﻿using Ecommerce.Application.Order.Commands;
-using Ecommerce.Application.Order.DTOs;
-using Ecommerce.Domain.Entities;
+﻿using Ecommerce.Application.Order.DTOs;
+using Ecommerce.Application.Order.Queries;
 using Ecommerce.Domain.Repositories;
 using MediatR;
 
 namespace Ecommerce.Application.Order.Handlers;
 
-public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderDto>
+public class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>
 {
     private readonly IOrderRepository _orderRepository;
-    public CreateOrderHandler(IOrderRepository orderRepository)
+    public GetOrderByIdQueryHandler(IOrderRepository orderRepository)
     {
         _orderRepository = orderRepository;
     }
     
-    public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<OrderDto> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
     {
-        var items = request.OrderItems.Select(i => new OrderItem(i.Name, i.Price, i.Quantity)).ToList();
-        var order = new Domain.Entities.Order(request.CustomerId, items);
-        await _orderRepository.AddAsync(order);
-
+        var order = await _orderRepository.GetByIdAsync(request.OrderId);
+        
+        if(order == null)
+            throw new ArgumentException($"O pedido {request.OrderId} não existe");
+       
         return new OrderDto()
         {
             Id = order.Id,
             CustomerId = order.CustomerId,
             OrderStatus = order.OrderStatus,
             CreatedAt = order.CreatedAt,
+            UpdatedAt = order.UpdatedAt,
+            DeletedAt = order.DeletedAt,
             OrderItems = order.OrderItems.Select(item => new OrderItemDto
             {
                 Name = item.Name,

@@ -4,8 +4,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Queries;
 
-public class GetAllCustomersQuery : IRequest<PagedList<CustomerDto>>
-{
-    public int PageNumber { get; set; } = 1;
-    public int PageSize { get; set; } = 10;
-}
+public record GetAllCustomersQuery(PageParams PageParams) : IRequest<PagedList<CustomerDto>>;

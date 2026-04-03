@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Domain.Entities;
 
-public class Order : AuditableEntity
+public class Order : BaseEntity
 {
     public OrderStatus OrderStatus { get; private set; }
     public Customer Customer { get; private set; } = null!;

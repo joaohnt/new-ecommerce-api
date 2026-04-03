@@ -1,11 +1,12 @@
-﻿using Ecommerce.Application.Order.DTOs;
+using Ecommerce.Application.Order.DTOs;
 using Ecommerce.Application.Order.Queries;
+using Ecommerce.Domain.Pagination;
 using Ecommerce.Domain.Repositories;
 using MediatR;
 
 namespace Ecommerce.Application.Order.Handlers;
 
-public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersQuery, IEnumerable<OrderDto>>
+public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersQuery, PagedList<OrderDto>>
 {
     private readonly IOrderRepository _orderRepository;
     public GetAllOrdersHandler(IOrderRepository orderRepository)
@@ -13,11 +14,11 @@ public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersQuery, IEnumerabl
         _orderRepository = orderRepository;
     }
     
-    public async Task<IEnumerable<OrderDto>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
+    public async Task<PagedList<OrderDto>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
     {
-        var orders = await _orderRepository.GetAllAsync();
-        
-        return orders.Select(order => new OrderDto()
+        var orders = await _orderRepository.GetAllAsync(request.PageNumber, request.PageSize);
+
+        var orderDtos = orders.Select(order => new OrderDto
         {
             Id = order.Id,
             CustomerId = order.CustomerId,
@@ -31,6 +32,7 @@ public class GetAllOrdersHandler : IRequestHandler<GetAllOrdersQuery, IEnumerabl
                 Price = item.Price,
                 Quantity = item.Quantity
             })
-        });
+        }).ToList();
+        return new PagedList<OrderDto>(orderDtos, orders.TotalCount, orders.PageSize, orders.CurrentPage);
     }
 }

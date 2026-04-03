@@ -13,8 +13,14 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
-app.UseHttpsRedirection();
+app.MapControllers();
+app.UseSwagger(options => { });
+app.UseSwaggerUI();
 
 app.Run();

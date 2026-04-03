@@ -7,5 +7,5 @@ namespace Ecommerce.Application.Order.Commands;
 public class CreateOrderCommand : IRequest<OrderDto>
 {
     public int CustomerId { get; set; }
-    public List<OrderItem> OrderItems { get; set; }
+    public List<OrderItemDto> OrderItems { get; set; }
 }

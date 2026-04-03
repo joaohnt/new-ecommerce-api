@@ -24,7 +24,7 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<PagedList<Customer?>> GetAllAsync(int pageNumber, int pageSize)
     {
-        var query = _context.Customers.AsNoTracking().OrderBy(c => c.Id);
+        var query = _context.Customers.AsNoTracking().Where(c => c.DeletedAt == null).OrderBy(c => c.Id);
         return await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
     }
 

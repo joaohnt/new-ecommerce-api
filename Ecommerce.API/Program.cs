@@ -1,3 +1,4 @@
+using Ecommerce.API.Exceptions;
 using Ecommerce.Domain.Repositories;
 using Ecommerce.Infrastructure.Database.Context;
 using Ecommerce.Infrastructure.Repositories;
@@ -12,6 +13,8 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -22,5 +25,6 @@ var app = builder.Build();
 app.MapControllers();
 app.UseSwagger(options => { });
 app.UseSwaggerUI();
+app.UseExceptionHandler();
 
 app.Run();

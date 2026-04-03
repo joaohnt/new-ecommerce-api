@@ -8,3 +8,15 @@ services:
     environment:
       SA_PASSWORD: "CristalCristalCristal!!!"
       ACCEPT_EULA: "Y"
+  
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=EcommerceDb;User Id=sa;Password=CristalCristalCristal!!!;TrustServerCertificate=True;"
+    depends_on:
+      - sqlserver

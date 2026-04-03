@@ -1,4 +1,5 @@
 using Ecommerce.API.Exceptions;
+using Ecommerce.API.Extensions;
 using Ecommerce.Domain.Repositories;
 using Ecommerce.Infrastructure.Database.Context;
 using Ecommerce.Infrastructure.Repositories;
@@ -21,6 +22,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+await app.MigrateDatabaseAsync();
 
 app.MapControllers();
 app.UseSwagger(options => { });

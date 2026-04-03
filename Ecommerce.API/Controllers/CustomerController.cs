@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ecommerce.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class CustomerController : ControllerBase
 {
     private readonly IMediator _mediator;

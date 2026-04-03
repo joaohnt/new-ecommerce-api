@@ -1,5 +1,6 @@
 using Ecommerce.Domain.Repositories;
 using Ecommerce.Infrastructure.Database.Context;
+using Ecommerce.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +10,8 @@ builder.Services.AddDbContext<EcommerceDbContext>(options =>
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Ecommerce.Application.Order.Commands.CreateOrderCommand).Assembly));
 
-//builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-    //builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 var app = builder.Build();
 

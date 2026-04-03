@@ -32,6 +32,11 @@ public class OrderRepository : IOrderRepository
             .Include(o => o.OrderItems)
             .FirstOrDefaultAsync(o => o.Id == orderId);
     }
+    
+    public async Task<Order?> GetByIdForCancelAsync(int orderId)
+    {
+        return await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+    }
 
     public async Task SaveChangesAsync()
     {

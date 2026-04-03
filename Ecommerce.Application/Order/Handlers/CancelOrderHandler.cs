@@ -13,7 +13,7 @@ public class CancelOrderHandler : IRequestHandler<CancelOrderCommand, bool>
     }
     public async Task<bool> Handle(CancelOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(request.OrderId);
+        var order = await _orderRepository.GetByIdForCancelAsync(request.OrderId);
         if (order == null)
             throw new ArgumentException("Não é possivel cancelar esse pedido.");
         order.CancelOrder();

@@ -1,6 +1,7 @@
-﻿using Ecommerce.Application.Order.Commands;
+using Ecommerce.Application.Order.Commands;
 using Ecommerce.Application.Order.DTOs;
 using Ecommerce.Application.Order.Queries;
+using Ecommerce.Domain.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,12 +16,17 @@ public class OrderController : ControllerBase
     {
         _mediator = mediator;
     }
-    
+
     [HttpGet]
     [Route("")]
-    public async Task<ActionResult<IEnumerable<OrderDto>>> GetAllAsync()
+    public async Task<ActionResult<PagedList<OrderDto>>> GetAllAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
-        var orders = await _mediator.Send(new GetAllOrdersQuery());
+        var orders = await _mediator.Send(new GetAllOrdersQuery
+        {
+            PageNumber = pageNumber,
+            PageSize = pageSize
+        });
+
         return Ok(orders);
     }
 
@@ -28,7 +34,7 @@ public class OrderController : ControllerBase
     [Route("{orderId}")]
     public async Task<ActionResult<OrderDto>> GetByIdAsync(int orderId)
     {
-        var order = await _mediator.Send(new GetOrderByIdQuery(){OrderId = orderId});
+        var order = await _mediator.Send(new GetOrderByIdQuery { OrderId = orderId });
         return Ok(order);
     }
 
@@ -44,7 +50,7 @@ public class OrderController : ControllerBase
     [Route("{orderId}")]
     public async Task<ActionResult> DeleteAsync(int orderId)
     {
-        await _mediator.Send(new CancelOrderCommand(){OrderId = orderId});
+        await _mediator.Send(new CancelOrderCommand { OrderId = orderId });
         return NoContent();
     }
 
@@ -60,16 +66,15 @@ public class OrderController : ControllerBase
     [Route("{orderId}/process")]
     public async Task<ActionResult<OrderDto>> ProcessOrderAsync(int orderId)
     {
-        await _mediator.Send(new ProcessOrderCommand{OrderId = orderId});
+        await _mediator.Send(new ProcessOrderCommand { OrderId = orderId });
         return Ok();
     }
-    
+
     [HttpPatch]
     [Route("{orderId}/ship")]
     public async Task<ActionResult<OrderDto>> ShipOrderAsync(int orderId)
     {
-        await _mediator.Send(new ShipOrderCommand{OrderId = orderId});
+        await _mediator.Send(new ShipOrderCommand { OrderId = orderId });
         return Ok();
     }
-    
 }

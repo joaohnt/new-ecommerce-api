@@ -1,6 +1,8 @@
 ﻿using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Pagination;
 using Ecommerce.Domain.Repositories;
 using Ecommerce.Infrastructure.Database.Context;
+using Ecommerce.Infrastructure.Helper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infrastructure.Repositories;
@@ -20,9 +22,10 @@ public class CustomerRepository : ICustomerRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<Customer?>> GetAllAsync()
+    public async Task<PagedList<Customer?>> GetAllAsync(int pageNumber, int pageSize)
     {
-        return await _context.Customers.ToListAsync();
+        var query = _context.Customers.AsNoTracking().OrderBy(c => c.Id);
+        return await PaginationHelper.CreateAsync(query, pageNumber, pageSize);
     }
 
     public async Task<Customer?> GetByIdAsync(int customerId)

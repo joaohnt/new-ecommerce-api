@@ -19,9 +19,13 @@ public class CustomerController : ControllerBase
 
     [HttpGet]
     [Route("")]
-    public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAllAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
-        var customers = await _mediator.Send(new GetAllCustomersQuery());
+        var customers = await _mediator.Send(new GetAllCustomersQuery()
+        {
+            PageNumber = pageNumber,
+            PageSize = pageSize
+        });       
         return Ok(customers);
     }
 

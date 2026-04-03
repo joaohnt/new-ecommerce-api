@@ -2,7 +2,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Commands;
 
-public class DeleteCustomerCommand : IRequest<bool>
-{
-    public int CustomerId { get; set; }
-}
+public record DeleteCustomerCommand(int CustomerId) : IRequest<bool>;

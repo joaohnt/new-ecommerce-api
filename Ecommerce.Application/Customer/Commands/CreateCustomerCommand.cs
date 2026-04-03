@@ -3,8 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Commands;
 
-public class CreateCustomerCommand : IRequest<CustomerDto>
-{
-    public string Name { get; set; }
-    public string Email { get; set; }
-}
+public record CreateCustomerCommand(string Name, string Email) : IRequest<CustomerDto>;

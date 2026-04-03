@@ -43,7 +43,7 @@ public class OrderController : ControllerBase
     [Route("{orderId}")]
     public async Task<ActionResult> DeleteAsync(int orderId)
     {
-        await _mediator.Send(new CancelOrderCommand { OrderId = orderId });
+        await _mediator.Send(new CancelOrderCommand(orderId));
         return NoContent();
     }
 
@@ -59,7 +59,7 @@ public class OrderController : ControllerBase
     [Route("{orderId}/process")]
     public async Task<ActionResult<OrderDto>> ProcessOrderAsync(int orderId)
     {
-        await _mediator.Send(new ProcessOrderCommand { OrderId = orderId });
+        await _mediator.Send(new ProcessOrderCommand(orderId));
         return Ok();
     }
 
@@ -67,7 +67,7 @@ public class OrderController : ControllerBase
     [Route("{orderId}/ship")]
     public async Task<ActionResult<OrderDto>> ShipOrderAsync(int orderId)
     {
-        await _mediator.Send(new ShipOrderCommand { OrderId = orderId });
+        await _mediator.Send(new ShipOrderCommand(orderId));
         return Ok();
     }
 }

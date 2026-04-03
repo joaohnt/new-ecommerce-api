@@ -1,7 +1,7 @@
 ﻿using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Pagination;
 
-namespace Ecommerce.Domain.Repositories;
+namespace Ecommerce.Domain.Interfaces;
 
 public interface ICustomerRepository
 {

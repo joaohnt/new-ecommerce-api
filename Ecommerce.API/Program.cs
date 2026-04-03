@@ -1,6 +1,6 @@
 using Ecommerce.API.Exceptions;
 using Ecommerce.API.Extensions;
-using Ecommerce.Domain.Repositories;
+using Ecommerce.Domain.Interfaces;
 using Ecommerce.Infrastructure.Database.Context;
 using Ecommerce.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;

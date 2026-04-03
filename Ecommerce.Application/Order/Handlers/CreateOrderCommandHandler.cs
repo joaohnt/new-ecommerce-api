@@ -1,7 +1,7 @@
 ﻿using Ecommerce.Application.Order.Commands;
 using Ecommerce.Application.Order.DTOs;
 using Ecommerce.Domain.Entities;
-using Ecommerce.Domain.Repositories;
+using Ecommerce.Domain.Interfaces;
 using MediatR;
 
 namespace Ecommerce.Application.Order.Handlers;

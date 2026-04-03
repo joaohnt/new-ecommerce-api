@@ -1,6 +1,6 @@
 ﻿using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Interfaces;
 using Ecommerce.Domain.Pagination;
-using Ecommerce.Domain.Repositories;
 using Ecommerce.Infrastructure.Database.Context;
 using Ecommerce.Infrastructure.Helper;
 using Microsoft.EntityFrameworkCore;

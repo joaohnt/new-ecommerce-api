@@ -1,5 +1,5 @@
 using Ecommerce.Application.Order.Commands;
-using Ecommerce.Domain.Repositories;
+using Ecommerce.Domain.Interfaces;
 using MediatR;
 
 namespace Ecommerce.Application.Order.Handlers;

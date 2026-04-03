@@ -2,7 +2,4 @@
 
 namespace Ecommerce.Application.Order.Commands;
 
-public class ShipOrderCommand : IRequest<bool>
-{
-    public int OrderId { get; set; }
-}
+public record ShipOrderCommand(int OrderId) : IRequest<bool>;

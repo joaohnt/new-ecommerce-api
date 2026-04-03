@@ -44,7 +44,7 @@ public class CustomerController : ControllerBase
     [Route("{customerId}")]
     public async Task<ActionResult> DeleteAsync(int customerId)
     {
-        await _mediator.Send(new DeleteCustomerCommand{CustomerId = customerId});
+        await _mediator.Send(new DeleteCustomerCommand(customerId));
         return NoContent();
     }
 }

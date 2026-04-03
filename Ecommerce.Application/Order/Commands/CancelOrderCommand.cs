@@ -1,6 +1,8 @@
-﻿namespace Ecommerce.Application.Order.Command;
+﻿using MediatR;
 
-public class CancelOrderCommand
+namespace Ecommerce.Application.Order.Commands;
+
+public class CancelOrderCommand : IRequest<bool>
 {
-    
+    public int OrderId { get; set; }
 }

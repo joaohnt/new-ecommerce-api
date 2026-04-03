@@ -1,10 +1,11 @@
-﻿using Ecommerce.Domain.Entities;
+﻿using Ecommerce.Application.Order.DTOs;
+using Ecommerce.Domain.Entities;
+using MediatR;
 
-namespace Ecommerce.Application.Order.Command;
+namespace Ecommerce.Application.Order.Commands;
 
-public class CreateOrderCommand
+public class CreateOrderCommand : IRequest<OrderDto>
 {
-    public int CustomerId { get; }
-    public List<OrderItem> OrderItems { get;}
-
+    public int CustomerId { get; set; }
+    public List<OrderItem> OrderItems { get; set; }
 }

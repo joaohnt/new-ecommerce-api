@@ -15,6 +15,9 @@ public class GetCustomerByIdHandler : IRequestHandler<GetCustomerByIdQuery, Cust
     public async Task<CustomerDto> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
     {
         var customer = await _customerRepository.GetByIdAsync(request.CustomerId);
+        
+        if(customer == null)
+            throw new ArgumentException($"O cliente {request.CustomerId} não existe");
 
         return new CustomerDto()
         {

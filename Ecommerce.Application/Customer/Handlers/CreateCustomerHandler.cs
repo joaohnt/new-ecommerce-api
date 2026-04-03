@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Handlers;
 
-public class CreateCustomerHandler : IRequestHandler<CreateCustomerRequest, CustomerDto>
+public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, CustomerDto>
 {
     private readonly ICustomerRepository _customerRepository;
 
@@ -14,9 +14,9 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerRequest, Cust
         _customerRepository = customerRepository;
     }
     
-    public async Task<CustomerDto> Handle(CreateCustomerRequest request, CancellationToken cancellationToken)
+    public async Task<CustomerDto> Handle(CreateCustomerCommand command, CancellationToken cancellationToken)
     {
-        var customer = new Domain.Entities.Customer(request.Name,request.Email);
+        var customer = new Domain.Entities.Customer(command.Name,command.Email);
         await _customerRepository.AddAsync(customer);
         return new CustomerDto
         {

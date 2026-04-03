@@ -1,6 +1,7 @@
-﻿namespace Ecommerce.Application.Order.Queries;
+﻿using Ecommerce.Application.Customer.DTOs;
+using Ecommerce.Application.Order.DTOs;
+using MediatR;
 
-public class GetAllOrdersQuery
-{
-    
-}
+namespace Ecommerce.Application.Order.Queries;
+
+public class GetAllOrdersQuery : IRequest<IEnumerable<OrderDto>> {};

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Handlers;
 
-public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerRequest, bool>
+public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerCommand, bool>
 {
     private readonly ICustomerRepository _customerRepository;
     public DeleteCustomerHandler(ICustomerRepository customerRepository)
@@ -12,9 +12,9 @@ public class DeleteCustomerHandler : IRequestHandler<DeleteCustomerRequest, bool
         _customerRepository = customerRepository;
     }
     
-    public async Task<bool> Handle(DeleteCustomerRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(DeleteCustomerCommand command, CancellationToken cancellationToken)
     {
-        await _customerRepository.DeleteAsync(request.CustomerId);
+        await _customerRepository.DeleteAsync(command.CustomerId);
         return true;
     }
 }

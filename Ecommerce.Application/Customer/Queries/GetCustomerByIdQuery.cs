@@ -5,5 +5,5 @@ namespace Ecommerce.Application.Customer.Queries;
 
 public class GetCustomerByIdQuery : IRequest<CustomerDto>
 {
-    public int CustomerId { get; }
+    public int CustomerId { get; set; }
 }

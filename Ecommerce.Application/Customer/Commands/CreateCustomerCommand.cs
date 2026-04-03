@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Customer.Commands;
 
-public class CreateCustomerRequest : IRequest<CustomerDto>
+public class CreateCustomerCommand : IRequest<CustomerDto>
 {
     public string Name { get; set; }
     public string Email { get; set; }

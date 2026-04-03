@@ -1,6 +1,10 @@
-using Ecommerce.Application.Order.Commands;
-using Ecommerce.Application.Order.DTOs;
-using Ecommerce.Application.Order.Queries;
+using Ecommerce.Application.Features.Order.Commands.CancelOrder;
+using Ecommerce.Application.Features.Order.Commands.CreateOrder;
+using Ecommerce.Application.Features.Order.Commands.ShipOrder;
+using Ecommerce.Application.Features.Order.Commands.ProcessOrder;
+using Ecommerce.Application.Features.Order.Commands.UpdateOrder;
+using Ecommerce.Application.Features.Order.DTOs;
+using Ecommerce.Application.Features.Order.Queries;
 using Ecommerce.Domain.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

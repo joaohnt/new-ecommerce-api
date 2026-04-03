@@ -1,0 +1,41 @@
+﻿using Ecommerce.Application.Features.Order.Commands.UpdateOrder;
+using Ecommerce.Application.Features.Order.DTOs;
+using Ecommerce.Domain.Interfaces;
+using MediatR;
+
+namespace Ecommerce.Application.Features.Order.Commands.UpdateOrder;
+
+public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, OrderDto>
+{
+    private readonly IOrderRepository _orderRepository;
+    public UpdateOrderCommandHandler(IOrderRepository orderRepository)
+    {
+        _orderRepository = orderRepository;
+    }
+    
+    public async Task<OrderDto> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
+    {
+        var order = await _orderRepository.GetByIdAsync(request.OrderId);
+        if (order == null)
+            throw new ArgumentException($"O pedido {request.OrderId} não existe.");
+        order.UpdateItem(request.ItemId, request.Name, request.Price, request.Quantity);
+        
+        await _orderRepository.SaveChangesAsync();
+
+        return new OrderDto
+        {
+            Id = order.Id,
+            CustomerId = order.CustomerId,
+            OrderStatus = order.OrderStatus,
+            CreatedAt = order.CreatedAt,
+            UpdatedAt = order.UpdatedAt,
+            DeletedAt =  order.DeletedAt,
+            OrderItems = order.OrderItems.Select(item => new OrderItemDto
+            {
+                Name = item.Name,
+                Price = item.Price,
+                Quantity = item.Quantity
+            })
+        };
+    }
+}

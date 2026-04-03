@@ -14,7 +14,7 @@ public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery,
     }
     public async Task<PagedList<CustomerDto>> Handle(GetAllCustomersQuery request, CancellationToken cancellationToken)
     {
-        var customers = await _customerRepository.GetAllAsync(request.PageParams.PageNumber, request.PageParams.PageSize);
+        var customers = await _customerRepository.GetAllAsync(request.PageParams.PageNumber, request.PageParams.PageSize, cancellationToken);
         
         var customerDtos =  customers.Select(customer => new CustomerDto()
         {

@@ -20,32 +20,32 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedList<CustomerDto>>> GetAllAsync([FromQuery] PageParams pageParams)
+    public async Task<ActionResult<PagedList<CustomerDto>>> GetAllAsync([FromQuery] PageParams pageParams, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetAllCustomersQuery(pageParams));
+        var result = await _mediator.Send(new GetAllCustomersQuery(pageParams), cancellationToken);
         return Ok(result);
     }
 
     [HttpGet]
     [Route("{customerId}")]
-    public async Task<ActionResult<CustomerDto>> GetByIdAsync(int customerId)
+    public async Task<ActionResult<CustomerDto>> GetByIdAsync(int customerId, CancellationToken cancellationToken)
     {
-        var customer = await _mediator.Send(new GetCustomerByIdQuery(customerId));
+        var customer = await _mediator.Send(new GetCustomerByIdQuery(customerId), cancellationToken);
         return Ok(customer);
     }
 
     [HttpPost] 
-    public async Task<ActionResult<CustomerDto>> CreateAsync([FromBody] CreateCustomerCommand command)
+    public async Task<ActionResult<CustomerDto>> CreateAsync([FromBody] CreateCustomerCommand command, CancellationToken cancellationToken)
     {
-        var customer = await _mediator.Send(command);
+        var customer = await _mediator.Send(command, cancellationToken);
         return Ok(customer);
     }
 
     [HttpDelete]
     [Route("{customerId}")]
-    public async Task<ActionResult> DeleteAsync(int customerId)
+    public async Task<ActionResult> DeleteAsync(int customerId, CancellationToken cancellationToken)
     {
-        await _mediator.Send(new DeleteCustomerCommand(customerId));
+        await _mediator.Send(new DeleteCustomerCommand(customerId), cancellationToken);
         return NoContent();
     }
 }

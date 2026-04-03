@@ -15,7 +15,7 @@ public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, Paged
     
     public async Task<PagedList<OrderDto>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
     {
-        var orders = await _orderRepository.GetAllAsync(request.PageParams.PageNumber, request.PageParams.PageSize);
+        var orders = await _orderRepository.GetAllAsync(request.PageParams.PageNumber, request.PageParams.PageSize, cancellationToken);
 
         var orderDtos = orders.Select(order => new OrderDto
         {

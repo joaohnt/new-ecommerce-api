@@ -15,14 +15,14 @@ public class ShipOrderCommandHandler : IRequestHandler<ShipOrderCommand, bool>
 
     public async Task<bool> Handle(ShipOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(request.OrderId);
+        var order = await _orderRepository.GetByIdAsync(request.OrderId, cancellationToken);
 
         if (order == null)
             throw new ArgumentException($"O pedido {request.OrderId} não existe.");
 
         order.Ship();
 
-        await _orderRepository.SaveChangesAsync();
+        await _orderRepository.SaveChangesAsync(cancellationToken);
         return true;
     }
 }

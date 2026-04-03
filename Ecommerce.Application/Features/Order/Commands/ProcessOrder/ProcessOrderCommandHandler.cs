@@ -15,14 +15,14 @@ public class ProcessOrderCommandHandler : IRequestHandler<ProcessOrderCommand, b
 
     public async Task<bool> Handle(ProcessOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(request.OrderId);
+        var order = await _orderRepository.GetByIdAsync(request.OrderId, cancellationToken);
 
         if (order == null)
             throw new ArgumentException($"O pedido {request.OrderId} não existe.");
 
         order.Process();
 
-        await _orderRepository.SaveChangesAsync();
+        await _orderRepository.SaveChangesAsync(cancellationToken);
         return true;
     }
 }

@@ -1,6 +1,6 @@
 using Ecommerce.Application.Customer.Commands;
 using Ecommerce.Application.Customer.DTOs;
-using Ecommerce.Domain.Repositories;
+using Ecommerce.Domain.Interfaces;
 using MediatR;
 
 namespace Ecommerce.Application.Customer.Handlers;

@@ -1,7 +1,7 @@
 using Ecommerce.Application.Customer.DTOs;
 using Ecommerce.Application.Customer.Queries;
 using Ecommerce.Domain.Pagination;
-using Ecommerce.Domain.Repositories;
+using Ecommerce.Domain.Interfaces;
 using MediatR;
 
 namespace Ecommerce.Application.Customer.Handlers;
